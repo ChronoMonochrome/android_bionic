@@ -12,6 +12,10 @@ libm_common_src_files += \
     significandl.c \
     sincos.c \
 
+ifeq($(ENABLE_LTO),true)
+    libm_common_src_files += ../libc/bionic/fpclassify.cpp \
+endif
+
 libm_common_src_files += \
     upstream-freebsd/lib/msun/bsdsrc/b_exp.c \
     upstream-freebsd/lib/msun/bsdsrc/b_log.c \
