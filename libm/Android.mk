@@ -300,4 +300,36 @@ LOCAL_LDFLAGS_arm64 := -Wl,--exclude-libs,libgcc.a
 LOCAL_LDFLAGS_mips64 := -Wl,--exclude-libs,libgcc.a
 LOCAL_LDFLAGS_x86_64 := -Wl,--exclude-libs,libgcc.a
 include $(BUILD_SHARED_LIBRARY)
+
+#
+# libm_hard.a for target.
+#
+include $(CLEAR_VARS)
+LOCAL_MODULE:= libm_hard
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_ARM_MODE := arm
+LOCAL_CFLAGS := $(libm_common_cflags)
+LOCAL_C_INCLUDES += $(libm_common_includes)
+LOCAL_SRC_FILES := $(libm_common_src_files)
+LOCAL_SYSTEM_SHARED_LIBRARIES := libc_hard
+
+# arch-specific settings
+LOCAL_C_INCLUDES_arm := $(LOCAL_PATH)/arm
+LOCAL_SRC_FILES_arm := arm/fenv.c
+
+LOCAL_C_INCLUDES_arm64 := $(libm_ld_includes)
+LOCAL_SRC_FILES_arm64 := arm64/fenv.c $(libm_ld_src_files)
+
+LOCAL_C_INCLUDES_x86 := $(LOCAL_PATH)/i387
+LOCAL_SRC_FILES_x86 := i387/fenv.c
+
+LOCAL_C_INCLUDES_x86_64 := $(libm_ld_includes)
+LOCAL_SRC_FILES_x86_64 := amd64/fenv.c $(libm_ld_src_files)
+
+LOCAL_SRC_FILES_mips := mips/fenv.c
+
+LOCAL_C_INCLUDES_mips64 := $(libm_ld_includes)
+LOCAL_SRC_FILES_mips64 := mips/fenv.c $(libm_ld_src_files)
+
+include $(BUILD_STATIC_LIBRARY)
 endif
