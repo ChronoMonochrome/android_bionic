@@ -332,4 +332,22 @@ LOCAL_C_INCLUDES_mips64 := $(libm_ld_includes)
 LOCAL_SRC_FILES_mips64 := mips/fenv.c $(libm_ld_src_files)
 
 include $(BUILD_STATIC_LIBRARY)
+
+#
+# libm_hard.so for target.
+#
+include $(CLEAR_VARS)
+LOCAL_MODULE:= libm_hard
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_SYSTEM_SHARED_LIBRARIES := libc_hard
+LOCAL_WHOLE_STATIC_LIBRARIES := libm_hard
+
+# We'd really like to do this for all architectures, but since this wasn't done
+# before, these symbols must continue to be exported on LP32 for binary
+# compatibility.
+LOCAL_LDFLAGS_arm64 := -Wl,--exclude-libs,libgcc.a
+LOCAL_LDFLAGS_mips64 := -Wl,--exclude-libs,libgcc.a
+LOCAL_LDFLAGS_x86_64 := -Wl,--exclude-libs,libgcc.a
+include $(BUILD_SHARED_LIBRARY)
+
 endif
