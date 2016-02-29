@@ -302,16 +302,16 @@ LOCAL_LDFLAGS_x86_64 := -Wl,--exclude-libs,libgcc.a
 include $(BUILD_SHARED_LIBRARY)
 
 #
-# libm_hard.a for target.
+# libw.a(aka libm_hard.a) for target.
 #
 include $(CLEAR_VARS)
-LOCAL_MODULE:= libm_hard
+LOCAL_MODULE:= libw
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
 LOCAL_ARM_MODE := arm
 LOCAL_CFLAGS := $(libm_common_cflags)
 LOCAL_C_INCLUDES += $(libm_common_includes)
 LOCAL_SRC_FILES := $(libm_common_src_files)
-LOCAL_SYSTEM_SHARED_LIBRARIES := libc_hard
+LOCAL_SYSTEM_SHARED_LIBRARIES := libc
 
 # arch-specific settings
 LOCAL_C_INCLUDES_arm := $(LOCAL_PATH)/arm
@@ -334,13 +334,13 @@ LOCAL_SRC_FILES_mips64 := mips/fenv.c $(libm_ld_src_files)
 include $(BUILD_STATIC_LIBRARY)
 
 #
-# libm_hard.so for target.
+# libw.so (aka libm_hard.so) for target.
 #
 include $(CLEAR_VARS)
-LOCAL_MODULE:= libm_hard
+LOCAL_MODULE:= libw
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_SYSTEM_SHARED_LIBRARIES := libc_hard
-LOCAL_WHOLE_STATIC_LIBRARIES := libm_hard
+LOCAL_SYSTEM_SHARED_LIBRARIES := libc
+LOCAL_WHOLE_STATIC_LIBRARIES := libw
 
 # We'd really like to do this for all architectures, but since this wasn't done
 # before, these symbols must continue to be exported on LP32 for binary
