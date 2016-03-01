@@ -48,12 +48,14 @@ static void __init_AT_SECURE(KernelArgumentBlock& args) {
   bool kernel_supplied_AT_SECURE;
   _AT_SECURE_value = args.getauxval(AT_SECURE, &kernel_supplied_AT_SECURE);
 
+/*
   // We don't support ancient kernels.
   if (!kernel_supplied_AT_SECURE) {
     const char* msg = "FATAL: kernel did not supply AT_SECURE\n";
     write(2, msg, strlen(msg));
     exit(EXIT_FAILURE);
   }
+*/
 }
 
 // Check if the environment variable definition at 'envstr'
