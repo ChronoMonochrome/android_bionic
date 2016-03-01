@@ -13,7 +13,7 @@ libm_common_src_files += \
     sincos.c \
 
 libm_common_src_files += \
-    libm_common_src_files += ../libc/bionic/fpclassify.cpp \
+    fpclassify.c \
     upstream-freebsd/lib/msun/bsdsrc/b_exp.c \
     upstream-freebsd/lib/msun/bsdsrc/b_log.c \
     upstream-freebsd/lib/msun/bsdsrc/b_tgamma.c \
